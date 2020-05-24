@@ -24,9 +24,40 @@ Or install it yourself as:
 
 require "d_clone"
 
+Lets first try it for Hashes
+
 x = { a: 1, b: { c: 3, d: [ 11, 12, 13 ], e: 12 } }
 
 clone_x = x.d_clone
+
+puts clone_x[:b]            ## {:c=>3, :d=>[11, 12, 13], :e=>12}
+puts clone_x[:b][:d]        ## [11, 12, 13]
+
+clone_x[:b][:f] = 14
+clone_x[:b][:d] << 14
+
+puts clone_x                ## {:a=>1, :b=>{:c=>3, :d=>[11, 12, 13, 14], :e=>12, :f=>14}} 
+puts x                      ## {:a=>1, :b=>{:c=>3, :d=>[11, 12, 13], :e=>12}} 
+
+The changes done in 'clone_x' don't reflect in 'x' (x remains intact)
+
+
+Lets now try it for Arrays
+
+y = [1, 2, [ 3, 4, 5, [ 6, 7 ], { a: 11, b: 12 } ]]
+
+clone_y = y.d_clone
+
+puts y[2][3]        ## [6, 7]
+puts y[2][4]        ## {:a=>11, :b=>12}
+
+y[2][3] << 88
+y[2][4][:c] = 333
+
+puts y              ## [1, 2, [3, 4, 5, [6, 7, 88], {:a=>11, :b=>12, :c=>333}]] 
+puts clone_y        ## [1, 2, [3, 4, 5, [6, 7], {:a=>11, :b=>12}]]
+
+The changes done in 'y' don't reflect in 'clone_y' (clone_y remains intact)
 
 
 ## Development
