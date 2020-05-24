@@ -38,6 +38,7 @@ puts clone_x[:b][:d]
 > [11, 12, 13]
 
 clone_x[:b][:f] = 14
+
 clone_x[:b][:d] << 14
 
 puts clone_x
@@ -64,6 +65,7 @@ puts y[2][4]
 > {:a=>11, :b=>12}
 
 y[2][3] << 88
+
 y[2][4][:c] = 333
 
 puts y
